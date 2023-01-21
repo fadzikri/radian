@@ -1,0 +1,29 @@
+{
+  "name": "apple",
+  "version": "1.0.0",
+  "description": "API of List Emojis and Classification",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fadzikri/apple.git"
+  },
+  "author": "fadzikri <109416385+fadzikri@users.noreply.github.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fadzikri/apple/issues"
+  },
+  "homepage": "https://github.com/fadzikri/apple#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "pretty": "^2.0.0"
+  }
+}

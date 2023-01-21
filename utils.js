@@ -1,6 +1,6 @@
 class Utils {
     static baseURL = "https://unicode.org/Public/emoji/";
-    static apiURL = "#";
+    static apiURL = "https://apple.cyclic.app/";
     static nameFileVersion = "emoji-versions";
 }
 

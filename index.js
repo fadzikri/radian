@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 app.get('/versions', (req, res) => {
   res.json({
     status: true,
+    url_origin: `${Utils.baseURL}/`,
     result: versions
   });
 });

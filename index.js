@@ -32,7 +32,7 @@ app.get('/versions', (req, res) => {
 app.get('/emoji_paths', (req, res) => {
   res.json({
     status: true,
-    url_origin: `${Utils.baseURL}/`,
+    url_origin: `${Utils.baseURL}/{versions.links}/`,
     result: emoji_path
   });
 });

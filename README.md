@@ -8,7 +8,7 @@ To Do List :
 
 - [x] Create Emoji Versions List
 - [x] Create Path Emoji Files List
-- Create Emoji List :
+- [ ] Create Emoji List :
     - [ ] All Emoji Qualified
     - [ ] All Unicode Emoji Qualified
     - [ ] Some version don't have qualified status, so include them directly

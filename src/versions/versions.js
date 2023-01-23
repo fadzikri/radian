@@ -29,50 +29,48 @@ const getEmojiRawDataVersion = async () => {
 }
 
 const createJSONEmojiVersion = () => {
-    return fs.readFile(pathVersionHTML, (err, data) => {
-        if (err) {
-            console.log("Error when reading raw HTML data.");
-        } else {
-            const $ = load(data);
-            let links = $("td a");
-            links = $(links).slice(1, links.length);
+    fs.readFile(pathVersionHTML, (err, data) => {
+        if (err) return console.log("Error when reading raw HTML data.");
+        
+        const $ = load(data);
+        let links = $("td a");
+        links = $(links).slice(1, links.length);
 
-            const arrayLinks = [];
+        const arrayLinks = [];
 
-            links.each((i, link) => {
-                arrayLinks.push($(link).text());
-            });
+        links.each((i, link) => {
+            arrayLinks.push($(link).text());
+        });
 
-            const arrayVersions = [];
-            const filenameVersions = [];
+        const arrayVersions = [];
+        const filenameVersions = [];
 
-            arrayLinks.map((version) => {
-                const ver = version.replace("/", "");
-                arrayVersions.push(ver);
-                filenameVersions.push(`${Utils.nameFileEmoji}-${ver}.html`);
-            })
+        arrayLinks.map((version) => {
+            const ver = version.replace("/", "");
+            arrayVersions.push(ver);
+            filenameVersions.push(`${Utils.nameFileEmoji}-${ver}.html`);
+        })
 
-            const emojiVerJSON = {};
+        const emojiVerJSON = {};
 
-            emojiVerJSON["versions"] = arrayVersions;
-            emojiVerJSON["links"] = arrayLinks;
+        emojiVerJSON["versions"] = arrayVersions;
+        emojiVerJSON["links"] = arrayLinks;
 
-            fs.writeFile(pathVersionJSON, JSON.stringify(emojiVerJSON), "utf-8", (err, data) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("Emoji Version JSON Created!");
-                }
-            });
+        fs.writeFile(pathVersionJSON, JSON.stringify(emojiVerJSON), "utf-8", (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Emoji Version JSON Created!");
+            }
+        });
 
-            fs.writeFile(pathFilenameJSON, JSON.stringify(filenameVersions), "utf-8", (err, data) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("Filename JSON Created!");
-                }
-            });
-        }
+        fs.writeFile(pathFilenameJSON, JSON.stringify(filenameVersions), "utf-8", (err, data) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Filename JSON Created!");
+            }
+        });
     })
 }
 

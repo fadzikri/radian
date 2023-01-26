@@ -47,14 +47,11 @@ const createJSONEmoji = () => {
 
         try {
             let emojiTextData = fs.readFileSync(`${Dirs.dirEmoji}/${fileEmojiText}`, "utf-8");
+            emojiTextData = emojiTextData.replace(/.+non-fully-qualified.+/g, "");
+            emojiTextData = emojiTextData.replace(/.+minimally-qualified.+/g, "");
+            emojiTextData = emojiTextData.replace(/.+unqualified.+/g, "");
             const regex = emojiRegex();
-
-            if (i > 2) {
-                emojiTextData = emojiTextData.match(/.+fully-qualified.+/g);
-                emojiTextData = emojiTextData.join("\n");
-                emojiTextData = emojiTextData.replace(/.+non-fully-qualified.+/g, "");
-            }
-    
+            
             for (const match of emojiTextData.matchAll(regex)) {
                 emojiDataArray.push(match[0]);
             }

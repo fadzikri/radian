@@ -9,9 +9,9 @@ To Do List :
 - [x] Create Emoji Versions List
 - [x] Create Path Emoji Files List
 - [ ] Create Emoji List :
-    - [ ] All Emoji Qualified
-    - [ ] All Unicode Qualified
-    - [ ] All Unicode, Emoji, Category, Description Qualified
+    - [ ] All Emoji Fully Qualified
+    - [ ] All Unicode Fully Qualified
+    - [ ] All Unicode, Emoji, Category, Description Fully Qualified
     - [ ] Some version don't have qualified status, so include them directly
 - [ ] Automation CI
 

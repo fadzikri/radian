@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import favicon from 'serve-favicon';
 import path from "path";
-import Utils from "./utils.js";
+import { Utils } from "./utils.js";
 import versions from "./src/versions/emoji-versions.json" assert { type: "json" };
 import emoji_paths from "./src/paths/emoji-paths.json" assert { type: "json" };
 import emoji from "./src/emojis/emojis.json" assert { type: "json" };

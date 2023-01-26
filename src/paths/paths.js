@@ -1,15 +1,11 @@
 import fs from "fs";
-import Utils from "../../utils.js";
+import { Dirs, Utils } from "../../utils.js";
 import pretty from "pretty";
 import { load } from "cheerio";
-import path from "path";
 
 const baseURL = Utils.baseURL;
-const dirSrc = `${path.resolve()}/src`;
-const dirVersion = `${dirSrc}/versions`;
-const dirEmojiPath = `${dirSrc}/paths`;
-const dirEmojiPathHTML = `${dirEmojiPath}/${Utils.nameFileEmoji}`;
-const fileEmojiVersionJSON = `${dirVersion}/${Utils.nameFileVersion}.json`;
+const dirEmojiPathHTML = `${Dirs.dirPath}/${Utils.nameFileEmoji}`;
+const fileEmojiVersionJSON = `${Dirs.dirVersion}/${Utils.nameFileVersion}.json`;
 
 const getEmojisPathTxt = () => {
     fs.readFile(fileEmojiVersionJSON, (err, data) => {
@@ -44,7 +40,7 @@ const createJSONEmojiPathTxt = () => {
     const emojisVersionData = JSON.parse(emojisVersionRaw);
     const emojiVersion = emojisVersionData.versions;
 
-    fs.readFile(`${dirVersion}/${Utils.nameFilename}.json`, "utf-8", (err, data) => {
+    fs.readFile(`${Dirs.dirVersion}/${Utils.nameFilename}.json`, "utf-8", (err, data) => {
         if (err) return console.log("Error when reading JSON file.")
         
         const files = JSON.parse(data);
@@ -54,7 +50,7 @@ const createJSONEmojiPathTxt = () => {
         files.forEach((file, i) => {  
             const arrayFilesEmojiTXT = {}
             
-            const $ = load(fs.readFileSync(`${dirEmojiPath}/${file}`));
+            const $ = load(fs.readFileSync(`${Dirs.dirPath}/${file}`));
             let fileTXTs = $("td a");
             fileTXTs = $(fileTXTs).slice(1, fileTXTs.length);
             
@@ -80,12 +76,12 @@ const createJSONEmojiPathTxt = () => {
             arrayFilesEmojiTXTs.push(arrayFilesEmojiTXT);
         });
 
-        fs.writeFile(`${dirEmojiPath}/${Utils.nameFileEmojiPath}.json`, 
+        fs.writeFile(`${Dirs.dirPath}/${Utils.nameFileEmojiPath}.json`, 
         JSON.stringify(arrayFilesEmojiTXTs), "utf-8", (err, data) => {
             if (err) {
                 console.log("Error when create JSON file.");
             } else {
-                console.log("JSON emoji file path created.");
+                console.log("Emoji Path JSON Created!");
             }
         })
     });

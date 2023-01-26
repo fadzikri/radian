@@ -4,7 +4,8 @@ import favicon from 'serve-favicon';
 import path from "path";
 import Utils from "./utils.js";
 import versions from "./src/versions/emoji-versions.json" assert { type: "json" };
-import emoji_path from "./src/paths/emoji-paths.json" assert { type: "json" };
+import emoji_paths from "./src/paths/emoji-paths.json" assert { type: "json" };
+import emoji from "./src/paths/emojs.json" assert { type: "json" };
 
 const app = express();
 const port = 3000
@@ -33,14 +34,14 @@ app.get('/emoji_paths', (req, res) => {
   res.json({
     status: true,
     url_origin: `${Utils.baseURL}/{versions.links}/`,
-    result: emoji_path
+    result: emoji_paths
   });
 });
 
 app.get('/emojis', (req, res) => {
   res.json({
     status: true,
-    result: null
+    result: emoji
   });
 });
 

@@ -43,7 +43,7 @@ const createJSONEmoji = () => {
         const emojiObject = {};
         const emojiDataArray = [];
 
-        emojiObject["version"] = fileEmojiText.replace(/emoji-|.txt/ig, "");
+        emojiObject["version"] = fileEmojiText.replace(/emojis-|.txt/ig, "");
 
         try {
             const emojiTextData = fs.readFileSync(`${Dirs.dirEmoji}/${fileEmojiText}`, "utf-8");

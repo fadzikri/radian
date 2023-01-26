@@ -46,14 +46,20 @@ const createJSONEmoji = () => {
         emojiObject["version"] = fileEmojiText.replace(/emojis-|.txt/ig, "");
 
         try {
-            const emojiTextData = fs.readFileSync(`${Dirs.dirEmoji}/${fileEmojiText}`, "utf-8");
+            let emojiTextData = fs.readFileSync(`${Dirs.dirEmoji}/${fileEmojiText}`, "utf-8");
             const regex = emojiRegex();
+
+            if (i > 2) {
+                emojiTextData = emojiTextData.match(/.+fully-qualified.+/g);
+                emojiTextData = emojiTextData.join("\n");
+                emojiTextData = emojiTextData.replace(/.+non-fully-qualified.+/g, "");
+            }
     
             for (const match of emojiTextData.matchAll(regex)) {
                 emojiDataArray.push(match[0]);
             }
         } catch (err) {
-            if (err) throw new Error("Error when create JSON file.")
+            console.log("Error when create JSON file.");
         }
 
         emojiObject["emoji"] = emojiDataArray;
@@ -70,5 +76,7 @@ const createJSONEmoji = () => {
         }
     })
 }
+
+createJSONEmoji();
 
 export { getEmojiTxt, createJSONEmoji };

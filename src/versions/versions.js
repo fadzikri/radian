@@ -1,14 +1,12 @@
 import fs from "fs";
 import { load } from "cheerio";
 import pretty from "pretty";
-import Utils from "../../utils.js"
-import path from "path";
+import { Dirs, Utils } from "../../utils.js"
 
 const baseURL = Utils.baseURL;
-const dirVersion = `${path.resolve()}/src/versions`;
-const pathVersionHTML = `${dirVersion}/${Utils.nameFileVersion}.html`;
-const pathVersionJSON = `${dirVersion}/${Utils.nameFileVersion}.json`;
-const pathFilenameJSON = `${dirVersion}/${Utils.nameFilename}.json`
+const pathVersionHTML = `${Dirs.dirVersion}/${Utils.nameFileVersion}.html`;
+const pathVersionJSON = `${Dirs.dirVersion}/${Utils.nameFileVersion}.json`;
+const pathFilenameJSON = `${Dirs.dirVersion}/${Utils.nameFilename}.json`
 
 const getEmojiRawDataVersion = async () => {
     try {

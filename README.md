@@ -28,3 +28,7 @@ Long Term List :
 Note :
 - Sync, try - catch
 - Async, callback err/data
+
+---
+
+will be continued sometime 💤

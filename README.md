@@ -13,7 +13,7 @@ To Do List :
     - [ ] All Unicode Fully Qualified
     - [ ] All Unicode, Emoji, Category, Description Fully Qualified
     - [ ] Some version don't have qualified status, so include them directly
-- [ ] Automation CI
+- [x] Automation CI
 
 Long Term List :
 
@@ -28,7 +28,3 @@ Long Term List :
 Note :
 - Sync, try - catch
 - Async, callback err/data
-
----
-
-will be continued sometime 💤

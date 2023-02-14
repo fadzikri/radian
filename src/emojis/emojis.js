@@ -74,6 +74,4 @@ const createJSONEmoji = () => {
     })
 }
 
-createJSONEmoji();
-
 export { getEmojiTxt, createJSONEmoji };

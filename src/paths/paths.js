@@ -1,7 +1,7 @@
-import fs from 'fs';
-import {Dirs, Utils} from '../../utils.js';
-import pretty from 'pretty';
-import {load} from 'cheerio';
+const fs = require('fs');
+const {Dirs, Utils} = require('../../utils.js');
+const pretty = require('pretty');
+const {load} = require('cheerio');
 
 const {baseURL} = Utils;
 const dirEmojiPathHTML = `${Dirs.dirPath}/${Utils.nameFileEmoji}`;
@@ -22,7 +22,7 @@ const getEmojisPathTxt = () => {
 				const rawData = await fetch(`${baseURL}/${link}`);
 				const textData = await rawData.text();
 
-				fs.writeFile(`${dirEmojiPathHTML}-${name[i]}.html`, pretty(textData), 'utf-8', (err, data) => {
+				fs.writeFile(`${dirEmojiPathHTML}-${name[i]}.html`, pretty(textData), 'utf-8', err => {
 					if (err) {
 						console.log(err);
 					} else {
@@ -63,13 +63,13 @@ const createJSONEmojiPathTxt = () => {
 			fileTXTs.each((i, fileTXT) => {
 				const fileTxt = $(fileTXT).text();
 
-				if (Utils.priorityEmojiFile.low == fileTxt) {
+				if (Utils.prioritye.low === fileTxt) {
 					arrayFilesEmojiSelection = fileTxt;
 				} else
-				if (Utils.priorityEmojiFile.medium == fileTxt) {
+				if (Utils.priority.medium === fileTxt) {
 					arrayFilesEmojiSelection = fileTxt;
 				} else
-				if (Utils.priorityEmojiFile.high == fileTxt) {
+				if (Utils.priority.high === fileTxt) {
 					arrayFilesEmojiSelection = fileTxt;
 				}
 			});
@@ -83,7 +83,7 @@ const createJSONEmojiPathTxt = () => {
 		fs.writeFile(`${Dirs.dirPath}/${Utils.nameFileEmojiPath}.json`,
 			JSON.stringify(arrayFilesEmojiTXTs),
 			'utf-8',
-			(err, data) => {
+			err => {
 				if (err) {
 					console.log('Error when create JSON file.');
 				} else {
@@ -93,4 +93,4 @@ const createJSONEmojiPathTxt = () => {
 	});
 };
 
-export {getEmojisPathTxt, createJSONEmojiPathTxt};
+module.exports = {getEmojisPathTxt, createJSONEmojiPathTxt};

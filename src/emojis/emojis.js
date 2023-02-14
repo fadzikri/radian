@@ -1,6 +1,6 @@
-import {Dirs, Utils} from '../../utils.js';
-import fs from 'fs';
-import emojiRegex from 'emoji-regex';
+const {Dirs, Utils} = require('../../utils.js');
+const fs = require('fs');
+const emojiRegex = require('emoji-regex');
 
 const {baseURL} = Utils;
 const dirEmojiPath = `${Dirs.dirEmoji}/${Utils.nameFileEmoji}`;

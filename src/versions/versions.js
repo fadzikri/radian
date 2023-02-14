@@ -1,19 +1,18 @@
-import fs from 'fs';
-import {load} from 'cheerio';
-import pretty from 'pretty';
-import {Dirs, Utils} from '../../utils.js';
+const fs = require('fs');
+const {load} = require('cheerio');
+const pretty = require('pretty');
+const {baseURL} = require('../../utils');
 
-const {baseURL} = Utils;
-const pathVersionHTML = `${Dirs.dirVersion}/${Utils.nameFileVersion}.html`;
-const pathVersionJSON = `${Dirs.dirVersion}/${Utils.nameFileVersion}.json`;
-const pathFilenameJSON = `${Dirs.dirVersion}/${Utils.nameFilename}.json`;
+const emojiVersionHTML = `${__dirname}/emoji-versions.html`;
+const emojiVersionJSON = `${__dirname}/emoji-versions.json`;
+const filenameJSON = `${__dirname}/filenames.json`;
 
-const getEmojiRawDataVersion = async () => {
+const getHTMLEmojiVersion = async () => {
 	try {
-		const rawData = await fetch(baseURL);
-		const textData = await rawData.text();
+		const htmlPage = await fetch(baseURL);
+		const textPage = await htmlPage.text();
 
-		fs.writeFile(pathVersionHTML, pretty(textData), 'utf-8', (err, data) => {
+		fs.writeFile(emojiVersionHTML, pretty(textPage), 'utf-8', err => {
 			if (err) {
 				console.log(err);
 			} else {
@@ -27,28 +26,32 @@ const getEmojiRawDataVersion = async () => {
 };
 
 const createJSONEmojiVersion = () => {
-	fs.readFile(pathVersionHTML, (err, data) => {
+	fs.readFile(emojiVersionHTML, (err, data) => {
 		if (err) {
 			return console.log('Error when reading raw HTML data.');
 		}
 
 		const $ = load(data);
 		let links = $('td a');
-		links = $(links).slice(1, links.length);
+		links = $(links).slice(1, links.length - 1);
 
 		const arrayLinks = [];
 
 		links.each((i, link) => {
-			arrayLinks.push($(link).text());
+			arrayLinks.push(`${baseURL}/${$(link).text()}`);
 		});
 
 		const arrayVersions = [];
-		const filenameVersions = [];
+		const filename = [];
 
-		arrayLinks.map(version => {
-			const ver = version.replace('/', '');
-			arrayVersions.push(ver);
-			filenameVersions.push(`${Utils.nameFileEmoji}-${ver}.html`);
+		arrayLinks.forEach(version => {
+			let numVersion = version.replace('https://unicode.org/Public/emoji', '');
+			numVersion = numVersion.replace(/\//g, '');
+
+			console.log(numVersion);
+
+			arrayVersions.push(numVersion);
+			filename.push(`emojis-${numVersion}.html`);
 		});
 
 		const emojiVerJSON = {};
@@ -56,7 +59,7 @@ const createJSONEmojiVersion = () => {
 		emojiVerJSON.versions = arrayVersions;
 		emojiVerJSON.links = arrayLinks;
 
-		fs.writeFile(pathVersionJSON, JSON.stringify(emojiVerJSON), 'utf-8', (err, data) => {
+		fs.writeFile(emojiVersionJSON, JSON.stringify(emojiVerJSON), 'utf-8', err => {
 			if (err) {
 				console.log(err);
 			} else {
@@ -64,7 +67,7 @@ const createJSONEmojiVersion = () => {
 			}
 		});
 
-		fs.writeFile(pathFilenameJSON, JSON.stringify(filenameVersions), 'utf-8', (err, data) => {
+		fs.writeFile(filenameJSON, JSON.stringify(filename), 'utf-8', err => {
 			if (err) {
 				console.log(err);
 			} else {
@@ -74,4 +77,4 @@ const createJSONEmojiVersion = () => {
 	});
 };
 
-export {getEmojiRawDataVersion, createJSONEmojiVersion};
+module.exports = {getHTMLEmojiVersion, createJSONEmojiVersion};

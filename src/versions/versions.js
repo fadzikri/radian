@@ -47,9 +47,6 @@ const createJSONEmojiVersion = () => {
 		arrayLinks.forEach(version => {
 			let numVersion = version.replace('https://unicode.org/Public/emoji', '');
 			numVersion = numVersion.replace(/\//g, '');
-
-			console.log(numVersion);
-
 			arrayVersions.push(numVersion);
 			filename.push(`emojis-${numVersion}.html`);
 		});

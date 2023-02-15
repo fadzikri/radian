@@ -9,10 +9,10 @@ const filenameJSON = `${__dirname}/filenames.json`;
 
 const getHTMLEmojiVersion = async () => {
 	try {
-		const htmlPage = await fetch(baseURL);
-		const textPage = await htmlPage.text();
+		const webPage = await fetch(baseURL);
+		const htmlPage = await webPage.text();
 
-		fs.writeFile(emojiVersionHTML, pretty(textPage), 'utf-8', err => {
+		fs.writeFile(emojiVersionHTML, pretty(htmlPage), 'utf-8', err => {
 			if (err) {
 				console.log(err);
 			} else {
@@ -42,21 +42,21 @@ const createJSONEmojiVersion = () => {
 		});
 
 		const arrayVersions = [];
-		const filename = [];
+		const filenames = [];
 
 		arrayLinks.forEach(version => {
 			let numVersion = version.replace('https://unicode.org/Public/emoji', '');
 			numVersion = numVersion.replace(/\//g, '');
 			arrayVersions.push(numVersion);
-			filename.push(`emojis-${numVersion}.html`);
+			filenames.push(`emojis-${numVersion}.html`);
 		});
 
-		const emojiVerJSON = {};
+		const result = {};
 
-		emojiVerJSON.versions = arrayVersions;
-		emojiVerJSON.links = arrayLinks;
+		result.versions = arrayVersions;
+		result.links = arrayLinks;
 
-		fs.writeFile(emojiVersionJSON, JSON.stringify(emojiVerJSON), 'utf-8', err => {
+		fs.writeFile(emojiVersionJSON, JSON.stringify(result), 'utf-8', err => {
 			if (err) {
 				console.log(err);
 			} else {
@@ -64,7 +64,7 @@ const createJSONEmojiVersion = () => {
 			}
 		});
 
-		fs.writeFile(filenameJSON, JSON.stringify(filename), 'utf-8', err => {
+		fs.writeFile(filenameJSON, JSON.stringify(filenames), 'utf-8', err => {
 			if (err) {
 				console.log(err);
 			} else {

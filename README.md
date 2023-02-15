@@ -17,13 +17,13 @@ To Do List :
 
 Long Term List :
 
-- [ ] Refactor Code Emoji Version List
-- [ ] Refactor Code Path Emoji Version List
+- [x] Refactor Code Emoji Version List
+- [x] Refactor Code Path Emoji Version List
 - [ ] Refactor Code Emoji List
 - [ ] Refactor Structure JSON
 - [ ] Refactor Filename List
-- [ ] Refactor Utils, Dirs
-- [ ] Refactor Veriabel Name
+- [x] Refactor Utils, Dirs
+- [ ] Refactor Variabel Name
 
 Note :
 - Sync, try - catch

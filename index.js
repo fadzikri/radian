@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const favicon = require('serve-favicon');
-const {Utils} = require('./utils');
+const {apiURL, baseURL} = require('./utils');
 const versions = require('./src/versions/emoji-versions.json');
 const emoji_paths = require('./src/paths/emoji-paths.json');
 const emoji = require('./src/emojis/emojis.json');
@@ -15,9 +15,9 @@ app.use(cors());
 app.get('/', (req, res) => {
 	res.json({
 		status: true,
-		versions: `${Utils.apiURL}/versions`,
-		emojis_path: `${Utils.apiURL}/emoji_paths`,
-		emojis: `${Utils.apiURL}/emojis`,
+		versions: `${apiURL}/versions`,
+		emojis_path: `${apiURL}/emoji_paths`,
+		emojis: `${apiURL}/emojis`,
 	});
 });
 
@@ -31,7 +31,7 @@ app.get('/versions', (req, res) => {
 app.get('/emoji_paths', (req, res) => {
 	res.json({
 		status: true,
-		url_origin: `${Utils.baseURL}/{versions.links}/`,
+		url_origin: `${baseURL}/{version}/`,
 		result: emoji_paths,
 	});
 });

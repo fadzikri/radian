@@ -33,7 +33,7 @@ const createJSONEmojiVersion = () => {
 
 		const $ = load(data);
 		let links = $('td a');
-		links = $(links).slice(1, links.length - 1);
+		links = $(links).slice(1, links.length);
 
 		const arrayLinks = [];
 

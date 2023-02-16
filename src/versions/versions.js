@@ -47,8 +47,6 @@ const createJSONEmojiVersion = () => {
 			arrayData.link = `${baseURL}/${$(link).text()}`;
 			filenames.push(`emojis-${numVersion}.html`);
 
-			console.log(arrayData);
-
 			result.push(arrayData);
 		});
 

@@ -35,26 +35,22 @@ const createJSONEmojiVersion = () => {
 		let links = $('td a');
 		links = $(links).slice(1, links.length);
 
-		const arrayLinks = [];
-
-		links.each((i, link) => {
-			arrayLinks.push(`${baseURL}/${$(link).text()}`);
-		});
-
-		const arrayVersions = [];
+		const result = [];
 		const filenames = [];
 
-		arrayLinks.forEach(version => {
-			let numVersion = version.replace('https://unicode.org/Public/emoji', '');
+		links.each((i, link) => {
+			const arrayData = {};
+			let numVersion = ($(link).text()).replace('https://unicode.org/Public/emoji', '');
 			numVersion = numVersion.replace(/\//g, '');
-			arrayVersions.push(numVersion);
+
+			arrayData.version = numVersion;
+			arrayData.link = `${baseURL}/${$(link).text()}`;
 			filenames.push(`emojis-${numVersion}.html`);
+
+			console.log(arrayData);
+
+			result.push(arrayData);
 		});
-
-		const result = {};
-
-		result.versions = arrayVersions;
-		result.links = arrayLinks;
 
 		fs.writeFile(emojiVersionJSON, JSON.stringify(result), 'utf-8', err => {
 			if (err) {

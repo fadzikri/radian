@@ -4,7 +4,7 @@ const {load} = require('cheerio');
 const {priority} = require('../../utils');
 
 const emojiVersions = `${__dirname}/../versions/emoji-versions.json`;
-let numVers = null;
+const numVersions = [];
 
 const getHTMLEmojisPath = () => {
 	fs.readFile(emojiVersions, (err, data) => {
@@ -13,27 +13,28 @@ const getHTMLEmojisPath = () => {
 		}
 
 		const parsedData = JSON.parse(data);
-		const {versions: numVersion, links} = parsedData;
 
-		numVers = numVersion;
+		parsedData.forEach(async (data, i) => {
+			const {version, link} = data;
 
-		try {
-			links.forEach(async (link, i) => {
+			numVersions.push(version);
+
+			try {
 				const webPage = await fetch(link);
 				const htmlPage = await webPage.text();
 
-				fs.writeFile(`${__dirname}/emojis-${numVers[i]}.html`, pretty(htmlPage), 'utf-8', err => {
+				fs.writeFile(`${__dirname}/emojis-${numVersions[i]}.html`, pretty(htmlPage), 'utf-8', err => {
 					if (err) {
 						console.log(err);
 					} else {
 						console.log('Emojis Paths HTML Downloaded!');
 					}
 				});
-			});
-		} catch (err) {
-			console.log(err);
-			console.log('Error when fetch data from origin server.');
-		}
+			} catch (err) {
+				console.log(err);
+				console.log('Error when fetch data from origin server.');
+			}
+		});
 	});
 };
 
@@ -70,7 +71,7 @@ const createJSONEmojiPath = () => {
 				}
 			});
 
-			arrayPath.version = numVers[i];
+			arrayPath.version = numVersions[i];
 			arrayPath.filename = fileEmoji;
 
 			result.push(arrayPath);

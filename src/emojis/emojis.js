@@ -1,23 +1,17 @@
-const {Dirs, Utils} = require('../../utils.js');
 const fs = require('fs');
 const emojiRegex = require('emoji-regex');
+const {baseURL} = require('../../utils');
 
-const {baseURL} = Utils;
-const dirEmojiPath = `${Dirs.dirEmoji}/${Utils.nameFileEmoji}`;
-const filenameEmojiPath = `${Dirs.dirPath}/${Utils.nameFileEmojiPath}.json`;
-const filenameEmoji = `${Dirs.dirVersion}/${Utils.nameFilename}.json`;
+const getHTMLEmojiText = () => {
+	const emojiPathsRaw = fs.readFileSync(`${__dirname}/../paths/emoji-paths.json`);
+	const emojiPathsData = JSON.parse(emojiPathsRaw);
 
-const getEmojiTxt = () => {
-	const emojisVersionRaw = fs.readFileSync(filenameEmojiPath);
-	const emojisVersionData = JSON.parse(emojisVersionRaw);
-
-	emojisVersionData.forEach(async data => {
+	emojiPathsData.forEach(async data => {
 		try {
-			const rawTXT = await fetch(`${baseURL}/${data.version}/${data.filename}`);
-			const emojiFileTXT = await rawTXT.text();
-			const fileEmojiName = `${dirEmojiPath}-${data.version}.txt`;
+			const emojiPage = await fetch(`${baseURL}/${data.version}/${data.filename}`);
+			const emojiFile = await emojiPage.text();
 
-			fs.writeFile(fileEmojiName, emojiFileTXT, 'utf-8', (err, data) => {
+			fs.writeFile(`${__dirname}/emojis-${data.version}.txt`, emojiFile, 'utf-8', err => {
 				if (err) {
 					console.log(err);
 				} else {
@@ -31,7 +25,7 @@ const getEmojiTxt = () => {
 	});
 };
 
-const createJSONEmoji = () => {
+const createJSONEmojiText = () => {
 	const emojisNamesRaw = fs.readFileSync(filenameEmoji);
 	const emojisNames = JSON.parse(emojisNamesRaw);
 	const emoji = [];
@@ -72,4 +66,4 @@ const createJSONEmoji = () => {
 	});
 };
 
-export {getEmojiTxt, createJSONEmoji};
+module.exports = {getHTMLEmojiText, createJSONEmojiText};

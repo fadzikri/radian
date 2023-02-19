@@ -21,9 +21,7 @@ Long Term List :
 - [x] Refactor Code Path Emoji Version List
 - [ ] Refactor Code Emoji List
 - [x] Refactor Structure JSON
-- ~[ ] Refactor Filename List~
 - [x] Refactor Utils, Dirs
-- ~[ ] Refactor Variabel Name~
 
 Note :
 - Sync, try - catch

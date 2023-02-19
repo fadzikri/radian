@@ -1,4 +1,4 @@
-# Apple [W.I.P]
+# Apple
 
 Emoji version and detail, data from <https://unicode.org/Public/emoji/>
 

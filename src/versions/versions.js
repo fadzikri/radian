@@ -16,19 +16,19 @@ const getHTMLEmojiVersion = async () => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('Emoji Version HTML Downloaded!');
+				console.log('emoji-versions.html Downloaded!');
 			}
 		});
 	} catch (err) {
 		console.log(err);
-		console.log('Error when fetch data from origin server.');
+		console.log(`Error when fetch data from ${baseURL}!`);
 	}
 };
 
 const createJSONEmojiVersion = () => {
 	fs.readFile(emojiVersionHTML, (err, data) => {
 		if (err) {
-			return console.log('Error when reading raw HTML data.');
+			return console.log('Error when reading emoji-versions.html!');
 		}
 
 		const $ = load(data);
@@ -54,7 +54,7 @@ const createJSONEmojiVersion = () => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('Emoji Version JSON Created!');
+				console.log('emoji-versions.json Created!');
 			}
 		});
 
@@ -62,7 +62,7 @@ const createJSONEmojiVersion = () => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log('Filename JSON Created!');
+				console.log('filenames.json Created!');
 			}
 		});
 	});

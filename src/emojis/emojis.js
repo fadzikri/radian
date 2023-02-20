@@ -1,6 +1,5 @@
 const fs = require('fs');
 const emojiRegex = require('emoji-regex');
-const {baseURL} = require('../../utils');
 
 const getHTMLEmojiText = () => {
 	const emojiPathsRaw = fs.readFileSync(`${__dirname}/../paths/emoji-paths.json`);
@@ -8,19 +7,19 @@ const getHTMLEmojiText = () => {
 
 	emojiPathsData.forEach(async data => {
 		try {
-			const emojiPage = await fetch(`${baseURL}/${data.version}/${data.filename}`);
+			const emojiPage = await fetch(data.filename);
 			const emojiFile = await emojiPage.text();
 
 			fs.writeFile(`${__dirname}/emojis-${data.version}.txt`, emojiFile, 'utf-8', err => {
 				if (err) {
 					console.log(err);
 				} else {
-					console.log('Emojis Text Downloaded!');
+					console.log(`emojis-${data.version}.txt Downloaded!`);
 				}
 			});
 		} catch (err) {
 			console.log(err);
-			console.log('Error when fetch data from origin server.');
+			console.log(`Error when fetch data from ${data.filename}!`);
 		}
 	});
 };

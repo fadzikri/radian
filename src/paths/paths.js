@@ -1,7 +1,7 @@
 const fs = require('fs');
 const pretty = require('pretty');
 const {load} = require('cheerio');
-const {priority} = require('../../utils');
+const {priority, baseURL} = require('../../utils');
 
 const emojiVersions = `${__dirname}/../versions/emoji-versions.json`;
 const numVersions = [];
@@ -9,7 +9,7 @@ const numVersions = [];
 const getHTMLEmojisPath = () => {
 	fs.readFile(emojiVersions, (err, data) => {
 		if (err) {
-			return console.log('Error when reading file JSON');
+			return console.log('Error when reading emoji-versions.json!');
 		}
 
 		const parsedData = JSON.parse(data);
@@ -27,12 +27,12 @@ const getHTMLEmojisPath = () => {
 					if (err) {
 						console.log(err);
 					} else {
-						console.log('Emojis Paths HTML Downloaded!');
+						console.log(`emojis-${numVersions[i]}.html Downloaded!`);
 					}
 				});
 			} catch (err) {
 				console.log(err);
-				console.log('Error when fetch data from origin server.');
+				console.log(`Error when fetch data from ${link}!`);
 			}
 		});
 	});
@@ -41,7 +41,7 @@ const getHTMLEmojisPath = () => {
 const createJSONEmojiPath = () => {
 	fs.readFile(`${__dirname}/../versions/filenames.json`, 'utf-8', (err, data) => {
 		if (err) {
-			return console.log('Error when reading JSON file.');
+			return console.log('Error when reading filenames.json!');
 		}
 
 		const files = JSON.parse(data);
@@ -72,16 +72,16 @@ const createJSONEmojiPath = () => {
 			});
 
 			arrayPath.version = numVersions[i];
-			arrayPath.filename = fileEmoji;
+			arrayPath.filename = `${baseURL}/${numVersions[i]}/${fileEmoji}`;
 
 			result.push(arrayPath);
 		});
 
 		fs.writeFile(`${__dirname}/emoji-paths.json`, JSON.stringify(result), 'utf-8', err => {
 			if (err) {
-				console.log('Error when create JSON file.');
+				console.log('Error when create emoji-paths.json!');
 			} else {
-				console.log('Emoji Path JSON Created!');
+				console.log('emoji-paths.json Created!');
 			}
 		});
 	});

@@ -1,0 +1,21 @@
+name: Merge Synced Data
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - auto_sync_data
+
+jobs:
+  Merge:
+    environment: CI
+    runs-on: ubuntu-latest
+    steps:
+    - name: Add Package GitHub Action Metadata
+      uses: actions/checkout@v3
+    - uses: everlytic/branch-merge@1.1.5
+      with:
+        github_token: ${{ github.token }}
+        source_ref: ${{ github.ref }}
+        target_branch: 'refactor-1'
+        commit_message_template: '[automated]_merged_{source_ref}_into_target_{target_branch}'

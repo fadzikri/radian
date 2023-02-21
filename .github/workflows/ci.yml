@@ -20,13 +20,13 @@ jobs:
     - name: Installing Package
       run: npm install
     - name: Updating All Datas
-      run: npm run update
-    - name: Creating Commit
       run: |
+        npm run update
         date > last-update.txt
-        git config user.name github-actions[bot]
-        git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-        git add .
-        git commit -m "update_data_auto"
-        git push
-        curl ${{ secrets.HEARTBEAT }}
+    - name: Creating Commit
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: sync_data_emoji
+        commit_author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+        commit_user_name: github-actions[bot]
+        commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com

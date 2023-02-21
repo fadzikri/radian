@@ -1,0 +1,24 @@
+name: Pull Request
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - refactor-1
+
+jobs:
+  Merge:
+    environment: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add Package GitHub Action Metadata
+        uses: actions/checkout@v3
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          delete-branch: true
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          title: 'Sync / Update Emoji Data'
+          body: 'Synced / Updated data emoji.'
+          branch: auto_sync_data

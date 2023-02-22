@@ -1,13 +1,5 @@
 require('dotenv').config();
 
-let apiURL = null;
-
-if (process.env.NODE_ENV === 'development') {
-	apiURL = 'http://localhost:3000';
-} else {
-	apiURL = 'https://radian.vercel.app';
-}
-
 const port = process.env.PORT;
 const baseURL = 'https://unicode.org/Public/emoji';
 const priority = {
@@ -15,5 +7,11 @@ const priority = {
 	medium: 'emoji-sequences.txt',
 	low: 'emoji-data.txt',
 };
+
+let apiURL = 'https://radian.vercel.app';
+
+if (process.env.NODE_ENV === 'development') {
+	apiURL = `http://localhost:${port}`;
+}
 
 module.exports = {port, apiURL, baseURL, priority};

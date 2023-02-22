@@ -13,6 +13,7 @@ const getHTMLEmojiText = () => {
 			fs.writeFile(`${__dirname}/emojis-${data.version}.txt`, emojiFile, 'utf-8', err => {
 				if (err) {
 					console.log(err);
+					console.log(`Error when create emojis-${data.version}.txt!`);
 				} else {
 					console.log(`emojis-${data.version}.txt Downloaded!`);
 				}
@@ -25,43 +26,40 @@ const getHTMLEmojiText = () => {
 };
 
 const createJSONEmojiText = () => {
-	const emojisNamesRaw = fs.readFileSync(filenameEmoji);
-	const emojisNames = JSON.parse(emojisNamesRaw);
-	const emoji = [];
+	const emojiFileJSON = fs.readFileSync(`${__dirname}/../versions/filenames.json`);
+	const emojiFiles = JSON.parse(emojiFileJSON);
 
-	emojisNames.forEach((data, i) => {
-		const fileEmojiText = data.replace(/html/ig, 'txt');
-		const emojiObject = {};
-		const emojiDataArray = [];
+	emojiFiles.forEach(data => {
+		const emojiName = data.replace(/.html/ig, '');
+		const emojiArrays = [];
+		const emojis = {};
 
-		emojiObject.version = fileEmojiText.replace(/emojis-|.txt/ig, '');
+		emojis.version = emojiName.replace(/emojis-/gi, '');
 
 		try {
-			let emojiTextData = fs.readFileSync(`${Dirs.dirEmoji}/${fileEmojiText}`, 'utf-8');
-			emojiTextData = emojiTextData.replace(/.+non-fully-qualified.+/g, '');
-			emojiTextData = emojiTextData.replace(/.+minimally-qualified.+/g, '');
-			emojiTextData = emojiTextData.replace(/.+unqualified.+/g, '');
+			let emojiData = fs.readFileSync(`${__dirname}/${emojiName}.txt`, 'utf-8');
+			emojiData = emojiData.replace(/.+non-fully-qualified.+|.+minimally-qualified.+|.+unqualified.+/ig, '');
 			const regex = emojiRegex();
 
-			for (const match of emojiTextData.matchAll(regex)) {
-				emojiDataArray.push(match[0]);
+			for (const match of emojiData.matchAll(regex)) {
+				emojiArrays.push(match[0]);
 			}
 		} catch (err) {
-			console.log('Error when create JSON file.');
-		}
-
-		emojiObject.emoji = emojiDataArray;
-		emojiObject.unicode = null;
-
-		emoji.push(emojiObject);
-	});
-
-	fs.writeFile(`${Dirs.dirEmoji}/${Utils.nameFileEmoji}.json`, JSON.stringify(emoji), 'utf-8', (err, data) => {
-		if (err) {
 			console.log(err);
-		} else {
-			console.log('Emojis JSON Created!');
+			console.log(`Error when reading ${emojiName}.txt!`);
 		}
+
+		emojis.emoji = emojiArrays;
+		emojis.unicode = null;
+
+		fs.writeFile(`${__dirname}/${emojiName}.json`, JSON.stringify(emojis), 'utf-8', err => {
+			if (err) {
+				console.log(err);
+				console.log(`Error when create ${emojiName}.json!`);
+			} else {
+				console.log(`${emojiName}.json Created!`);
+			}
+		});
 	});
 };
 

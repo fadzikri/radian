@@ -1,5 +1,5 @@
 {
-  "name": "apple",
+  "name": "radian",
   "version": "1.0.0",
   "description": "API of List Emojis and Classification",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fadzikri/apple.git"
+    "url": "git+https://github.com/fadzikri/radian.git"
   },
-  "author": "fadzikri <109416385+fadzikri@users.noreply.github.com>",
+  "author": "Fa Dzikri <109416385+fadzikri@users.noreply.github.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fadzikri/apple/issues"
+    "url": "https://github.com/fadzikri/radian/issues"
   },
-  "homepage": "https://github.com/fadzikri/apple#readme",
+  "homepage": "https://github.com/fadzikri/radian#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "emoji-regex": "^10.2.1",

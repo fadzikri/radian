@@ -1,13 +1,14 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const favicon = require('serve-favicon');
-const {apiURL} = require('./utils');
+const {port, apiURL} = require('./utils');
 const versions = require('./src/versions/emoji-versions.json');
 const emoji_paths = require('./src/paths/emoji-paths.json');
 const emoji = require('./src/emojis/emojis.json');
 
 const app = express();
-const port = 3000;
 
 app.use(favicon(`${__dirname}/favicon.ico`));
 app.use(cors());
@@ -43,5 +44,5 @@ app.get('/emojis', (req, res) => {
 });
 
 app.listen(port, () => {
-	console.log(`Server running on port ${port}`);
+	console.log('Server running...');
 });

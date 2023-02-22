@@ -1,4 +1,4 @@
-# Apple
+# Radian
 
 Emoji version and detail, data from <https://unicode.org/Public/emoji/>
 

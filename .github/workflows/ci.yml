@@ -1,4 +1,4 @@
-name: Update Data
+name: Continous Integration
 
 on:
   workflow_dispatch:

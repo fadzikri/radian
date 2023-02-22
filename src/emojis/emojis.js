@@ -63,6 +63,4 @@ const createJSONEmojiText = () => {
 	});
 };
 
-createJSONEmojiText();
-
 module.exports = {getHTMLEmojiText, createJSONEmojiText};

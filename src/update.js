@@ -3,8 +3,8 @@ const {getHTMLEmojisPath, createJSONEmojiPath} = require('./paths/paths');
 const {getHTMLEmojiText, createJSONEmojiText} = require('./emojis/emojis');
 
 setTimeout(() => getHTMLEmojiVersion(), 0);
-setTimeout(() => createJSONEmojiVersion(), 10000);
-setTimeout(() => getHTMLEmojisPath(), 20000);
-setTimeout(() => createJSONEmojiPath(), 30000);
-setTimeout(() => getHTMLEmojiText(), 40000);
-// setTimeout(() => createJSONEmojiText(), 50000);
+setTimeout(() => createJSONEmojiVersion(), 8000);
+setTimeout(() => getHTMLEmojisPath(), 18000);
+setTimeout(() => createJSONEmojiPath(), 29000);
+setTimeout(() => getHTMLEmojiText(), 35000);
+setTimeout(() => createJSONEmojiText(), 48000);

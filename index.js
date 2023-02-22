@@ -3,11 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const favicon = require('serve-favicon');
+const fs = require('fs');
 const {port, apiURL} = require('./utils');
 const versions = require('./src/versions/emoji-versions.json');
 const emoji_paths = require('./src/paths/emoji-paths.json');
 const emoji = require('./src/emojis/emojis.json');
-const fs = require('fs');
+const last_update = require('./src/last_update/last_update.json');
 const path = require('path');
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors());
 app.get('/', (req, res) => {
 	res.json({
 		status: true,
+		last_update,
 		versions: `${apiURL}/versions`,
 		emojis_path: `${apiURL}/emoji_paths`,
 		emojis: `${apiURL}/emojis`,

@@ -62,5 +62,6 @@ fs.readdir(`${__dirname}/src/emojis`, (err, files) => {
 });
 
 app.listen(port, () => {
-	console.log('Server running...');
+	console.log(`Running on ${apiURL}`);
 });
+

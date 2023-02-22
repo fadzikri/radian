@@ -1,4 +1,4 @@
-const apiURL = 'https://apple.cyclic.app';
+const apiURL = 'https://radian.vercel.app';
 const baseURL = 'https://unicode.org/Public/emoji';
 const priority = {
 	high: 'emoji-test.txt',

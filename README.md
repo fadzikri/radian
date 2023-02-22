@@ -26,3 +26,7 @@ Long Term List :
 Note :
 - Sync, try - catch
 - Async, callback err/data
+
+Link API :
+- <http://radian.laurinum.my.id/>
+- <https://radian.vercel.app/>

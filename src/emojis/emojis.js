@@ -1,5 +1,8 @@
 const fs = require('fs');
 const emojiRegex = require('emoji-regex');
+const {apiURL} = require('../../utils');
+
+const emojiFileName = [];
 
 const getHTMLEmojiText = () => {
 	const emojiPathsRaw = fs.readFileSync(`${__dirname}/../paths/emoji-paths.json`);
@@ -31,10 +34,12 @@ const createJSONEmojiText = () => {
 
 	emojiFiles.forEach(data => {
 		const emojiName = data.replace(/.html/ig, '');
+		const emojiVersion = emojiName.replace(/emojis-/gi, '');
 		const emojiArrays = [];
 		const emojis = {};
 
-		emojis.version = emojiName.replace(/emojis-/gi, '');
+		emojis.status = true;
+		emojis.version = emojiVersion;
 
 		try {
 			let emojiData = fs.readFileSync(`${__dirname}/${emojiName}.txt`, 'utf-8');
@@ -49,8 +54,8 @@ const createJSONEmojiText = () => {
 			console.log(`Error when reading ${emojiName}.txt!`);
 		}
 
-		emojis.emoji = emojiArrays;
-		emojis.unicode = null;
+		emojis.emojis = emojiArrays;
+		emojis.unicodes = null;
 
 		fs.writeFile(`${__dirname}/${emojiName}.json`, JSON.stringify(emojis), 'utf-8', err => {
 			if (err) {
@@ -58,9 +63,21 @@ const createJSONEmojiText = () => {
 				console.log(`Error when create ${emojiName}.json!`);
 			} else {
 				console.log(`${emojiName}.json Created!`);
+				emojiFileName.push(`${apiURL}/emojis/${emojiVersion}`);
 			}
 		});
 	});
 };
 
-module.exports = {getHTMLEmojiText, createJSONEmojiText};
+const createJSONEmojiFileName = () => {
+	fs.writeFile(`${__dirname}/emojis.json`, JSON.stringify(emojiFileName), 'utf-8', err => {
+		if (err) {
+			console.log(err);
+			console.log('Error when create emojis.json!');
+		} else {
+			console.log('emojis.json Created!');
+		}
+	});
+};
+
+module.exports = {getHTMLEmojiText, createJSONEmojiText, createJSONEmojiFileName};

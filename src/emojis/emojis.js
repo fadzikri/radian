@@ -36,7 +36,7 @@ const createJSONEmojiText = () => {
 		const emojiName = data.replace(/.html/ig, '');
 		const emojiVersion = emojiName.replace(/emojis-/gi, '');
 		const emojiIcons = [];
-		// const emojiCode = [];
+		const emojiCode = [];
 		const emojis = {};
 
 		emojis.status = true;
@@ -51,19 +51,21 @@ const createJSONEmojiText = () => {
 				emojiIcons.push(match[0]);
 			}
 
-			let arraysOfUnicode = emojiData.match(/^(?:[0-9A-F]{4,5}\s?){1,}(?:;|\s+(?:;|#))/gm);
+			const arraysOfUnicode = emojiData.match(/^(?:[0-9A-F]{4,5}\s?){1,}(?:;|\s+(?:;|#))/gm);
 
-			arraysOfUnicode = arraysOfUnicode.map(unicode => {
-				console.log(unicode.trim());
+			arraysOfUnicode.map(unicode => {
+				let text = unicode.replace(/;|#/g, '');
+				text = text.trim();
+
+				return emojiCode.push(text);
 			});
-			// /^(?:[0-9A-F]{4,5}\s?){1,}/g
 		} catch (err) {
 			console.log(err);
 			console.log(`Error when reading ${emojiName}.txt!`);
 		}
 
 		emojis.emojis = emojiIcons;
-		emojis.unicodes = null;
+		emojis.unicodes = emojiCode;
 
 		try {
 			fs.writeFileSync(`${__dirname}/${emojiName}.json`, JSON.stringify(emojis), 'utf-8');
@@ -86,7 +88,5 @@ const createJSONEmojiFileName = () => {
 		}
 	});
 };
-
-createJSONEmojiText();
 
 module.exports = {getHTMLEmojiText, createJSONEmojiText, createJSONEmojiFileName};

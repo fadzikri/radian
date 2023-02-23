@@ -57,15 +57,14 @@ const createJSONEmojiText = () => {
 		emojis.emojis = emojiArrays;
 		emojis.unicodes = null;
 
-		fs.writeFile(`${__dirname}/${emojiName}.json`, JSON.stringify(emojis), 'utf-8', err => {
-			if (err) {
-				console.log(err);
-				console.log(`Error when create ${emojiName}.json!`);
-			} else {
-				console.log(`${emojiName}.json Created!`);
-				emojiFileName.push(`${apiURL}/emojis/${emojiVersion}`);
-			}
-		});
+		try {
+			fs.writeFileSync(`${__dirname}/${emojiName}.json`, JSON.stringify(emojis), 'utf-8');
+			console.log(`${emojiName}.json Created!`);
+			emojiFileName.push(`${apiURL}/emojis/${emojiVersion}`);
+		} catch (err) {
+			console.log(err);
+			console.log(`Error when create ${emojiName}.json!`);
+		}
 	});
 };
 

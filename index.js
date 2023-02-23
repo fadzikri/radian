@@ -55,11 +55,13 @@ fs.readdir(`${__dirname}/src/emojis`, (err, files) => {
 	const emojisJSON = files.filter(file => path.extname(file) === '.json');
 
 	emojisJSON.forEach(emojiJSON => {
-		const version = emojiJSON.replace(/emojis-|.json/gi, '');
+		if (emojiJSON !== 'emojis.json') {
+			const version = emojiJSON.replace(/emojis-|.json/gi, '');
 
-		app.get(`/emojis/${version}`, (req, res) => {
-			res.json(require(`./src/emojis/${emojiJSON}`));
-		});
+			app.get(`/emojis/${version}`, (req, res) => {
+				res.json(require(`./src/emojis/${emojiJSON}`));
+			});
+		}
 	});
 });
 

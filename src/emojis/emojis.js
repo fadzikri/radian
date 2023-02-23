@@ -35,37 +35,33 @@ const createJSONEmojiText = () => {
 	emojiFiles.forEach(data => {
 		const emojiName = data.replace(/.html/ig, '');
 		const emojiVersion = emojiName.replace(/emojis-/gi, '');
-		const emojiIcons = [];
-		const emojiCode = [];
 		const emojis = {};
 
 		emojis.status = true;
 		emojis.version = emojiVersion;
+		emojis.result = [];
 
 		try {
+			const regex = emojiRegex();
 			let emojiData = fs.readFileSync(`${__dirname}/${emojiName}.txt`, 'utf-8');
 			emojiData = emojiData.replace(/.+non-fully-qualified.+|.+minimally-qualified.+|.+unqualified.+/ig, '');
-			const regex = emojiRegex();
 
-			for (const match of emojiData.matchAll(regex)) {
-				emojiIcons.push(match[0]);
-			}
-
+			const arraysOfEmoji = emojiData.match(regex);
 			const arraysOfUnicode = emojiData.match(/^(?:[0-9A-F]{4,5}\s?){1,}(?:;|\s+(?:;|#))/gm);
 
-			arraysOfUnicode.map(unicode => {
-				let text = unicode.replace(/;|#/g, '');
-				text = text.trim();
+			arraysOfEmoji.forEach((emoji, i) => {
+				const resultEmoji = {};
+				const unicode = String(arraysOfUnicode[i]).replace(/;|#/g, '').trim();
 
-				return emojiCode.push(text);
+				resultEmoji.emoji = emoji;
+				resultEmoji.unicode = unicode;
+
+				emojis.result.push(resultEmoji);
 			});
 		} catch (err) {
 			console.log(err);
 			console.log(`Error when reading ${emojiName}.txt!`);
 		}
-
-		emojis.emojis = emojiIcons;
-		emojis.unicodes = emojiCode;
 
 		try {
 			fs.writeFileSync(`${__dirname}/${emojiName}.json`, JSON.stringify(emojis), 'utf-8');

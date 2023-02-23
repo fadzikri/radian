@@ -1,5 +1,4 @@
 const fs = require('fs');
-const emojiRegex = require('emoji-regex');
 const {apiURL} = require('../../utils');
 
 const emojiFileName = [];
@@ -42,19 +41,18 @@ const createJSONEmojiText = () => {
 		emojis.result = [];
 
 		try {
-			const regex = emojiRegex();
 			let emojiData = fs.readFileSync(`${__dirname}/${emojiName}.txt`, 'utf-8');
 			emojiData = emojiData.replace(/.+non-fully-qualified.+|.+minimally-qualified.+|.+unqualified.+/ig, '');
 
-			const arraysOfEmoji = emojiData.match(regex);
 			const arraysOfUnicode = emojiData.match(/^(?:[0-9A-F]{4,5}\s?){1,}(?:;|\s+(?:;|#))/gm);
 
-			arraysOfEmoji.forEach((emoji, i) => {
+			arraysOfUnicode.forEach(unicode => {
 				const resultEmoji = {};
-				const unicode = String(arraysOfUnicode[i]).replace(/;|#/g, '').trim();
+				const getUnicode = unicode.replace(/;|#/g, '').trim();
+				const createEmoji = String.fromCodePoint(parseInt(getUnicode, 16));
 
-				resultEmoji.emoji = emoji;
-				resultEmoji.unicode = unicode;
+				resultEmoji.emoji = createEmoji;
+				resultEmoji.unicode = getUnicode;
 
 				emojis.result.push(resultEmoji);
 			});

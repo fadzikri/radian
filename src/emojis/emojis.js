@@ -91,6 +91,4 @@ const createJSONEmojiFileName = () => {
 	});
 };
 
-createJSONEmojiText();
-
 module.exports = {getHTMLEmojiText, createJSONEmojiText, createJSONEmojiFileName};

@@ -57,7 +57,7 @@ const createJSONEmojiText = () => {
 				emojis.result.push(resultEmoji);
 			});
 
-			const arraysOfName = emojiData.match(/(?<=#\sV\d+\.\d+\s\(.+\)\s|\]\s\(\W+\)\s{6}|#\s\W+\s).+|E?\d+\.\d+\s/gmi);
+			const arraysOfName = emojiData.match(/E\d+\..*|(?<=#\sV.+\(.*\)\s|#\s\(.*\)\s|\]\s\(.*\).{6}|#\s(\W+|0️⃣|1️⃣|2️⃣|3️⃣|4️⃣|5️⃣|6️⃣|7️⃣|8️⃣|9️⃣)\s).*/gmi);
 
 			arraysOfName.forEach((name, i) => {
 				const text = name.replace(/E\d+\.\d+\s/gmi, '');

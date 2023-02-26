@@ -48,7 +48,7 @@ const createJSONEmojiText = () => {
 
 			arraysOfUnicode.forEach(unicode => {
 				const resultEmoji = {};
-				const getUnicode = unicode.replace(/;|#/g, '').trim();
+				const getUnicode = unicode.replace(/;|#|face\n/gim, '').trim();
 				const createEmoji = String.fromCodePoint(...getUnicode.split(' ').map(unicodex => parseInt(unicodex, 16)));
 
 				resultEmoji.emoji = createEmoji;

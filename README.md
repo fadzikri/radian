@@ -8,10 +8,10 @@ To Do List :
 
 - [x] Create Emoji Versions List
 - [x] Create Path Emoji Files List
-- [ ] Create Emoji List :
+- [x] Create Emoji List :
     - [x] All Emoji Fully Qualified
     - [x] All Unicode Fully Qualified
-    - [ ] All Unicode, Emoji, Category, Description Fully Qualified
+    - [x] All Unicode, Emoji, Category, Description Fully Qualified
     - [x] Some version don't have qualified status, so include them directly
 - [x] Automation CI
 

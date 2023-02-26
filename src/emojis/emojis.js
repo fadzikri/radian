@@ -42,9 +42,9 @@ const createJSONEmojiText = () => {
 
 		try {
 			let emojiData = fs.readFileSync(`${__dirname}/${emojiName}.txt`, 'utf-8');
-			emojiData = emojiData.replace(/.+non-fully-qualified.+|.+minimally-qualified.+|.+unqualified.+/ig, '');
+			emojiData = emojiData.replace(/^#.*|.+non-fully-qualified.+|.+minimally-qualified.+|.+unqualified.+/igm, '');
 
-			const arraysOfUnicode = emojiData.match(/^(?:[0-9A-F]{4,5}\s?){1,}(?:;|\s+(?:;|#))/gm);
+			const arraysOfUnicode = emojiData.match(/(?:[0-9A-F]{4,5}\s?){1,}(?:;|\s+(?:;|#))/gm);
 
 			arraysOfUnicode.forEach(unicode => {
 				const resultEmoji = {};
@@ -55,6 +55,14 @@ const createJSONEmojiText = () => {
 				resultEmoji.unicode = getUnicode;
 
 				emojis.result.push(resultEmoji);
+			});
+
+			const arraysOfName = emojiData.match(/(?<=#\sV\d+\.\d+\s\(.+\)\s|\]\s\(\W+\)\s{6}|#\s\(.+\)\s|#\s\W+\s).+/gm);
+
+			arraysOfName.forEach((name, i) => {
+				const text = name.replace(/E\d+\.\d+\s/, '');
+
+				emojis.result[i].name = text;
 			});
 		} catch (err) {
 			console.log(err);

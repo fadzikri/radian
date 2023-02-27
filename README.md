@@ -1,28 +1,11 @@
 # Radian
 
-Emoji version and detail, data from <https://unicode.org/Public/emoji/>
+API Emojis, Unicodes and Names
 
-Nothing, purpose just learning for making API and know how to processing data.
+Data sources from <https://unicode.org/Public/emoji>
 
-To Do List :
+API Link : <https://radian.vercel.app>
 
-- [x] Create Emoji Versions List
-- [x] Create Path Emoji Files List
-- [x] Create Emoji List :
-    - [x] All Emoji Fully Qualified
-    - [x] All Unicode Fully Qualified
-    - [x] All Unicode, Emoji, Category, Description Fully Qualified
-    - [x] Some version don't have qualified status, so include them directly
-- [x] Automation CI
+Status Update :
 
-Long Term List :
-
-- [x] Refactor Code Emoji Version List
-- [x] Refactor Code Path Emoji Version List
-- [x] Refactor Code Emoji List
-- [x] Refactor Structure JSON
-- [x] Refactor Utils, Dirs
-
-Note :
-- Sync, try - catch
-- Async, callback err/data
+[![Continous Integration](https://github.com/fadzikri/radian/actions/workflows/ci.yml/badge.svg)](https://github.com/fadzikri/radian/actions/workflows/ci.yml)

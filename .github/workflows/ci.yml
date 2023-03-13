@@ -24,7 +24,7 @@ jobs:
     - name: Installing Package
       run: pnpm install
     - name: Update API Datas
-      run: npm run update
+      run: pnpm run update
     - name: Add Last Time Update
       run: |
         date > last-update.txt

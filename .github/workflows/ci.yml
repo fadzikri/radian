@@ -3,7 +3,7 @@ name: Continous Integration
 on:
   workflow_dispatch:
   schedule: 
-    - cron: "0 0 15 * *"
+    - cron: "0 0 15,22,28 * *"
 
 jobs:
   Update:
@@ -12,16 +12,21 @@ jobs:
     steps:
     - name: Add Package GitHub Action Metadata
       uses: actions/checkout@v3
+    - name: Add Package Manager PNPM 
+      uses: pnpm/action-setup@v2
+      with:
+        version: 7
     - name: Add Package GitHub NodeJS Setup
       uses: actions/setup-node@v3
       with:
         node-version: latest
-        cache: 'npm'
+        cache: 'pnpm'
     - name: Installing Package
-      run: npm install
-    - name: Updating All Datas
+      run: pnpm install
+    - name: Update API Datas
+      run: npm run update
+    - name: Add Last Time Update
       run: |
-        npm run update
         date > last-update.txt
     - name: Creating Commit
       uses: stefanzweifel/git-auto-commit-action@v4
